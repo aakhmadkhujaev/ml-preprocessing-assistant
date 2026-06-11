@@ -48,7 +48,31 @@ def main():
             duplicate_info = utils.analyze_duplicates(cleaned_df)
             print(duplicate_info)
 
+            print("\nChoose encoding method:")
+            print("1. One-Hot Encoding")
+            print("2. Label Encoding")
+            print("3. Skip Encoding")
+
+            choice = input("Enter choice: ")
+
+            if choice == "1":
+                encoding_method = "onehot"
+
+            elif choice == "2":
+                encoding_method = "label"
+
+            elif choice == "3":
+                encoding_method = "skip"
+
+            else:
+                raise ValueError("Invalid choice.")
             
+            encoded_df = preprocessing.encode_dataset(
+                cleaned_df,
+                encoding_method
+            )
+
+
             print("\nChoose scaling method:")
             print("1. StandardScaler")
             print("2. MinMaxScaler")
@@ -57,26 +81,26 @@ def main():
             choice = input("Enter choice: ")
 
             if choice == "1":
-                method = "standard"
+                scaling_method = "standard"
 
             elif choice == "2":
-                method = "minmax"
+                scaling_method = "minmax"
 
             elif choice == "3":
-                method = "skip"
+                scaling_method = "skip"
 
             else:
                 raise ValueError("Invalid choice.")
 
             scaled_df = preprocessing.scale_dataset(
-                cleaned_df,
-                method
+                encoded_df,
+                scaling_method
             )
 
-            if method == "skip":
+            if scaling_method == "skip":
                 print("\nScaling skipped.")
             else:
-                print(f"\nScaling applied using {method}.")
+                print(f"\nScaling applied using {scaling_method}.")
 
             utils.save_dataset(
                 scaled_df,
@@ -84,6 +108,8 @@ def main():
             )
 
             print("Dataset processed successfully!")
+        
+
 
                         
 

@@ -1,5 +1,5 @@
 import pandas as pd
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from sklearn.preprocessing import LabelEncoder, MinMaxScaler, StandardScaler
 def clean_dataset(df):
     cleaned_df = df.copy()
     cleaned_df = cleaned_df.drop_duplicates()
@@ -43,3 +43,47 @@ def scale_dataset(df, method):
     )
 
     return scaled_df
+
+def one_hot_encode(df):
+    encoded_df = df.copy()
+
+    categorical_columns = encoded_df.select_dtypes(
+        exclude="number"
+    ).columns
+
+    encoded_df = pd.get_dummies(
+        encoded_df,
+        columns=categorical_columns,
+        drop_first=True
+    )
+
+    return encoded_df
+
+def label_encode(df):
+    encoded_df = df.copy()
+
+    categorical_columns = encoded_df.select_dtypes(
+        exclude="number"
+    ).columns
+
+    for col in categorical_columns:
+        encoder = LabelEncoder()
+        encoded_df[col] = encoder.fit_transform(
+            encoded_df[col]
+        )
+
+    return encoded_df
+
+def encode_dataset(df, method):
+
+    if method == "onehot":
+        return one_hot_encode(df)
+
+    elif method == "label":
+        return label_encode(df)
+
+    elif method == "skip":
+        return df.copy()
+
+    else:
+        raise ValueError("Invalid encoding method.")
