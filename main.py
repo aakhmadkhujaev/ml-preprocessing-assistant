@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import visualization
 from numpy.random import choice
 import preprocessing
 import utils
@@ -30,6 +30,38 @@ def main():
 
             duplicate_info = utils.analyze_duplicates(df)
             print(duplicate_info)
+            
+            #Visualization part
+            print("Choose visualization:")
+            print("1. Missing Values Chart")
+            print("2. Histogram")
+            print("3. Heatmap")
+            print("4. Skip Visualization")
+
+            visualization_choice = input("Enter choice: ")
+            if visualization_choice == "1":
+               visualization.plot_missing_values(df)
+            elif visualization_choice == "2":
+                numeric_columns = df.select_dtypes(
+                    include="number"
+                ).columns
+
+                print("\nAvailable numeric columns:")
+                for col in numeric_columns:
+                    print(f"- {col}")
+
+                column = input(
+                    "\nEnter numeric column name: "
+                )
+
+                visualization.plot_histogram(
+                    df,
+                    column
+                )
+            elif visualization_choice == "3":
+                visualization.plot_correlation_heatmap(df)
+            elif visualization_choice == "4":
+                 print("Visualization skipped.")
 
             # Clean dataset
             cleaned_df = preprocessing.clean_dataset(df)

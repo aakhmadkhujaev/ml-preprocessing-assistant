@@ -1,33 +1,56 @@
 # ML Preprocessing Assistant
 
-A Python-based tool for loading, analyzing, cleaning, and preprocessing datasets before machine learning training.
+A Python tool that helps automate common machine learning preprocessing tasks such as data cleaning, encoding, scaling, and visualization.
+
+---
 
 ## Features
 
-### Dataset Loading
-- Load CSV datasets
-- File existence validation
-- Error handling for invalid file paths
+### Data Analysis
 
-### Dataset Analysis
-- Display number of rows and columns
-- Display column names
-- Display data types
 - Analyze missing values
 - Analyze duplicate rows
+- Display dataset information
 
 ### Data Cleaning
+
+- Fill missing values using:
+  - Mean
+  - Median
+  - Mode
+- Drop rows with missing values
 - Remove duplicate rows
-- Fill missing numerical values using Median
-- Fill missing categorical values using Mode
+
+### Data Encoding
+
+- One-Hot Encoding
+- Label Encoding
+- Skip Encoding
 
 ### Feature Scaling
+
 - StandardScaler
 - MinMaxScaler
-- Option to skip scaling
+- Skip Scaling
 
-### Dataset Export
-- Save processed datasets as CSV files
+### Data Visualization
+
+- Missing Values Chart
+- Histogram for selected numeric columns
+- Correlation Heatmap
+
+### Output Files
+
+The project automatically saves:
+
+- `output/cleaned_data.csv`
+- `output/processed_data.csv`
+
+Visualization files are saved in:
+
+- `output/plots/missing_values.png`
+- `output/plots/*_histogram.png`
+- `output/plots/correlation_heatmap.png`
 
 ---
 
@@ -40,10 +63,16 @@ ml-preprocessing-assistant/
 │   └── mpg.csv
 │
 ├── output/
-│   └── processed_data.csv
+│   ├── cleaned_data.csv
+│   ├── processed_data.csv
+│   └── plots/
+│       ├── missing_values.png
+│       ├── horsepower_histogram.png
+│       └── correlation_heatmap.png
 │
 ├── main.py
 ├── preprocessing.py
+├── visualization.py
 ├── utils.py
 ├── requirements.txt
 └── README.md
@@ -51,117 +80,102 @@ ml-preprocessing-assistant/
 
 ---
 
-## Workflow
+## Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/ml-preprocessing-assistant.git
+cd ml-preprocessing-assistant
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Requirements
+
+```text
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+```
+
+---
+
+## Usage
+
+Run:
+
+```bash
+python main.py
+```
+
+The application will guide you through:
+
+1. Dataset analysis
+2. Visualization options
+3. Missing value handling
+4. Encoding selection
+5. Scaling selection
+6. Saving processed datasets
+
+---
+
+## Example Workflow
 
 ```text
 Load Dataset
       ↓
-Analyze Dataset
+Analyze Missing Values
+      ↓
+Analyze Duplicates
+      ↓
+Visualize Data
       ↓
 Clean Dataset
       ↓
-Analyze Cleaned Dataset
+Encode Features
       ↓
-Choose Scaling Method
+Scale Features
       ↓
-Save Processed Dataset
+Save Results
 ```
 
 ---
 
-## Scaling Options
+## Example Visualizations
 
-### StandardScaler
+### Missing Values Chart
 
-Transforms features to have:
+Shows the number of missing values in each column.
 
-- Mean = 0
-- Standard Deviation = 1
+### Histogram
 
-Suitable for:
-- Logistic Regression
-- SVM
-- Neural Networks
-- PCA
+Displays the distribution of a selected numeric feature.
 
-### MinMaxScaler
+### Correlation Heatmap
 
-Transforms features to:
-
-- Range [0, 1]
-
-Suitable for:
-- Neural Networks
-- Distance-based algorithms
-- Bounded features
-
-### Skip Scaling
-
-Keeps original numeric values unchanged.
-
----
-
-## Example Output
-
-```text
-========== Dataset Information ==========
-
-Number of rows: 398
-Number of columns: 9
-
-========== Missing Values Analysis ==========
-
-Missing values by column:
-- horsepower: 6 missing values
-
-========== Duplicate Analysis ==========
-
-No duplicate rows found in the dataset.
-
-Dataset cleaned successfully!
-
-Scaling applied using standard.
-
-Dataset saved to 'output/processed_data.csv'
-```
-
----
-
-## Technologies Used
-
-- Python
-- Pandas
-- Scikit-Learn
-- Pathlib
+Shows relationships between numeric features using correlation coefficients.
 
 ---
 
 ## Future Improvements
 
-- One-Hot Encoding
-- Label Encoding
-- Outlier Detection
-- Feature Selection Utilities
-- Interactive Menu System
-- Data Visualization
-
----
-
-## Learning Objectives
-
-This project was built to practice:
-
-- Data Cleaning
-- Missing Value Handling
-- Duplicate Detection
-- Feature Scaling
-- Modular Python Development
-- Machine Learning Preprocessing Workflows
+- Box Plots
+- Scatter Plots
+- Automatic EDA Report Generation
+- Pipeline-Based Preprocessing
+- Feature Selection Tools
 
 ---
 
 ## Author
 
-Abror Akhmadkhujaev
-
-Machine Learning & AI Engineering Student
+Built as part of a Machine Learning learning journey focused on developing practical data science tools and understanding real-world preprocessing workflows.
